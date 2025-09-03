@@ -23,3 +23,18 @@ app.get("/hello/:name",(req,res) => {
     const {name } = req.params;
     res.json({message: `Hello ${name}!`});
 })
+
+// Query parameters are acessed via req.query
+app.get("/search", (req,res) => {
+    const {term, limit} = req.query;
+
+    if(!term){
+        return res.status(400).json({errpr: "Search term is required"});
+    }
+
+    res.json({
+        search:term,
+        limit: limit || "Not specified",
+        results: [`Result 1 for ${term}`, `Result 2 for ${term}`]
+    })
+})
